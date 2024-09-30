@@ -4,10 +4,9 @@ import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { join } from 'path';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
-import { CommentModule } from './comment/comment.module';
-import { PostModule } from './post/post.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { PostsModule } from './posts/posts.module';
+
 
 @Module({
   imports: [
@@ -15,10 +14,8 @@ import { PostModule } from './post/post.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
-    PostModule,
-    CommentModule,
-    AuthModule,
-    UsersModule,
+    MongooseModule.forRoot(process.env.DATABASE_URI),
+    PostsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
