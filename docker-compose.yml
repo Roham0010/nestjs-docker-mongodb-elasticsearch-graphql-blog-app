@@ -7,14 +7,13 @@ services:
       context: ./
       dockerfile: Dockerfile
     environment:
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_USER: ${DATABASE_USER}
-      DATABASE_PASS: ${DATABASE_PASS}
       DATABASE_URI: ${DATABASE_URI}
     ports:
       - '3000:3000'
     depends_on:
       - database
+    volumes:
+      - .:/app
 
   database:
     image: mongo:latest
